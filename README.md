@@ -89,7 +89,7 @@ Before an application can be deployed a namespace must be created. Beside the ac
 
 The Namespace for our application, called **application-1** is simply created by (labels are cut): 
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -104,7 +104,7 @@ To authenticate against ArgoCD and use RBAC rules two users and two groups are b
 
 These groups can be created with the following yaml: 
 
-```
+```ymal
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
@@ -132,7 +132,7 @@ Let’s create the following two AppProjects:
 - application-1-dev: used for DEV deployments
 - application-1-ops: used for PROD deployments
 
-```
+```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -313,7 +313,7 @@ The rules are configured in the ArgoCD object (not in the ArgoCD Project).
 
 2. Add the following rules and defaultPolicy at **spec.rbac** \
 This will create the dummy roles called “none” with no privileges and assigned it as default policy. 
-```
+```yaml
   rbac:
     defaultPolicy: role:none
     policy: |-
@@ -374,7 +374,7 @@ The permission definition differs between applications and other resource type:
 
 In our example above we gave the developers the following permissions: 
 
-```
+```yaml
   roles:
     - description: Group to developers to deploy on DEV environment
       groups:
@@ -413,7 +413,7 @@ In other words, Mona can fully manage ArgoCD Applications and all resources for 
 
 The ArgoCD instance itself follows the same principle. 
 
-```
+```yaml
 p, role:application-1-dev, applications, get, application-1/*, allow
 p, role:application-1-dev, clusters, get, https://kubernetes.default.svc, allow
 g, application-1-dev, role:application-1-dev
